@@ -1,4 +1,5 @@
 #include <chrono>
+#pragma once
 namespace utils {
     float getCurrentTimeInSeconds()
     {

@@ -1,3 +1,4 @@
+#pragma once
 #include "RigidBody.hpp"
 class ForceGenerator{
     public :

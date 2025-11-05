@@ -1,8 +1,6 @@
 #include<iostream>
 #include<math.h>
-#ifndef VECTOR2_HPP
-#define VECTOR2_HPP
-
+#pragma once 
 class Vector2{
     public :
     float  x, y;
@@ -38,4 +36,3 @@ class Vector2{
 
 
 
-#endif // VECTOR2_HPP
