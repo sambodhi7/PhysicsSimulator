@@ -5,7 +5,7 @@ CXXFLAGS = -Wall -std=c++17 -Iinclude -Ilibraries/sfml/include
 # Build directory for executable
 BUILD_DIR = build
 
-SRCS = $(wildcard src/*.cpp)
+SRCS = $(wildcard src/*.cpp			)
 OBJS = $(SRCS:.cpp=.o)
 
 # Target executable path inside build folder
