@@ -5,13 +5,20 @@
 #include "RigidBody.hpp"
 #include "Component.hpp"
 #include<vector>
+#include "ForceRegistry.hpp"
+#include "DownWardsGravity.hpp"
 
 class PhysicsWorld
 {
     private :  
-     PhysicsWorld () {};
+     PhysicsWorld () {
+       m_isRunning = true;
+     };
      std::vector<RigidBody*> m_bodies ; 
      std::vector<Component*> m_components ; 
+     ForceRegistry m_forceRegister ;
+     bool m_isRunning = true;
+
 
 
    public : 
@@ -20,5 +27,10 @@ class PhysicsWorld
      void renderAll(Renderer& renderer);
       void addRigidBody ( RigidBody* rb ) ;
       void addComponent ( Component* comp ) ;
+      void pause();
+      void resume();
+      void toggleRunning();
+      
+
 
 };

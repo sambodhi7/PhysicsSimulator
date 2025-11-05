@@ -1,5 +1,6 @@
 #include "RigidBody.hpp"
 #include "Vector2.hpp"
+#include <iostream>
 RigidBody::RigidBody ( float mass, Vector2 pos ) 
     : m_mass ( mass ), position ( pos ) {
     if ( mass == 0 ) {
@@ -35,6 +36,7 @@ void RigidBody::setPosition ( Vector2 pos ) {
 
 void RigidBody::applyForce(Vector2 force ){
     m_sigmaforce += force ;
+    
 }
 
 // Eucledian integration will replace later 
@@ -44,5 +46,6 @@ void RigidBody::update (float dt) {
     position += m_linVelocity * dt;
     m_linVelocity = m_linVelocity +  (acceleration * dt * 0.5f);
     m_sigmaforce = Vector2 (0.0f, 0.0f); 
+    
 }
 

@@ -61,7 +61,20 @@ int main()
                         1.0f
                     );
                 }   
+                  
+
+                
             }
+
+            
+            if (auto* key = event->getIf<sf::Event::KeyPressed>())
+            {
+                if (key->scancode == sf::Keyboard::Scancode::Space)
+                {
+                    physicsWorld.toggleRunning();
+                }
+            }
+
         }
 
         window.clear(sf::Color(50, 50, 50));
