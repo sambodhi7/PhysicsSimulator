@@ -8,6 +8,7 @@
 #include "Circle.hpp"
 #include "RigidBody.hpp"
 
+
 int main()
 {
     sf::RenderWindow window(
@@ -16,6 +17,8 @@ int main()
         sf::Style::Titlebar | sf::Style::Close
     );
 
+   
+
     PhysicsWorld& physicsWorld = PhysicsWorld::getInstance();
     Renderer::getInstance().setRenderWindow(&window);
 
@@ -23,11 +26,10 @@ int main()
     float prevTime   = utils::getCurrentTimeInSeconds();
 
 
-    Circle* c = new Circle(10.0f, new RigidBody(1.0f, Vector2(100.0f, 100.0f)));
-    physicsWorld.addComponent(c);
-
+   
     while (window.isOpen())
     {
+      
         float currentTime = utils::getCurrentTimeInSeconds();
         float frameTime   = currentTime - prevTime;
         prevTime          = currentTime;
@@ -64,7 +66,6 @@ int main()
 
         window.clear(sf::Color(50, 50, 50));
         physicsWorld.renderAll(Renderer::getInstance());
-        
         window.display();
     }
 

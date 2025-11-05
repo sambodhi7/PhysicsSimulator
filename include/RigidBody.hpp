@@ -2,10 +2,14 @@
 #pragma once
 class RigidBody{
     private : 
-      Vector2 position ;
+      
       float m_mass ;
       float m_onebymass; 
-      float m_linVelocity ;
+      Vector2 m_linVelocity ;
+      Vector2 m_sigmaforce;
+      Vector2 position ;
+
+      
     public :
         RigidBody ( float mass, Vector2 pos ) ;
         void setMass ( float mass) ;
@@ -13,7 +17,8 @@ class RigidBody{
         Vector2 getPosition () const ;
         void setPosition ( Vector2 pos ) ;
         void applyForce ( Vector2 force, float dt ) ;
-
-
+        void update ( float dt ) ;
+        void applyForce( Vector2 force ) ;
+        bool hasInfiniteMass() const ; 
         
 };
