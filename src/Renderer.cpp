@@ -19,12 +19,21 @@ void Renderer::render(Component* comp) {
     
 }
 
+sf::Color getColor(float m){
+    switch( (int)m % 4){
+        case 0: return sf::Color::Red;
+        case 1: return sf::Color::Blue;
+        case 2: return sf::Color::Green;
+        case 3: return sf::Color::Yellow;
+    }
+}
+
 void Renderer::render(Circle* circle) {
     
     Vector2 center = circle->getRigidBody()->getPosition();
     float radius = circle->getRadius();
     sf::CircleShape shape(radius);
-    shape.setFillColor(sf::Color::Green);
+    shape.setFillColor(getColor(circle->getRigidBody()->getMass()));
     shape.setOrigin({radius, radius});
     shape.setPosition({center.x, center.y});
     m_window->draw(shape);
