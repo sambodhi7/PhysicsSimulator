@@ -7,10 +7,11 @@
 #include "Renderer.hpp"
 #include "Circle.hpp"
 #include "RigidBody.hpp"
-
+#include "demo.hpp"
 
 int main()
-{
+{   
+    Demo::generateRandom(100, config::WINDOW_WIDTH, config::WINDOW_HEIGHT);
     sf::RenderWindow window(
         sf::VideoMode(sf::Vector2u(config::WINDOW_WIDTH, config::WINDOW_HEIGHT)),
         "Physics Simulator 2D",
@@ -26,6 +27,7 @@ int main()
     float prevTime   = utils::getCurrentTimeInSeconds();
     
     physicsWorld.pause();
+   
 
    
     while (window.isOpen())
@@ -56,10 +58,10 @@ int main()
                 {
                     sf::Vector2i mousePos = sf::Mouse::getPosition(window);
                     add::createCircle(
-                        15.0f,
+                        30.0f,
                         static_cast<float>(mousePos.x),
                         static_cast<float>(mousePos.y),
-                        3.0f
+                        10.0f
                     );
                 }   
                   

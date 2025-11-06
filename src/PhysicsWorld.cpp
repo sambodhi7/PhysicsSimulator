@@ -76,19 +76,3 @@ void PhysicsWorld::toggleRunning(){
     m_isRunning = !m_isRunning; 
 }
 
-void PhysicsWorld::createWalls(float width, float height) {
-    Vector2 up(0.0f, -1.0f);
-    Vector2 down(0.0f, 1.0f);
-    Vector2 left(-1.0f, 0.0f);
-    Vector2 right(1.0f, 0.0f);
-    
-    Plane* floor = new Plane(up, height);
-    Plane* ceiling = new Plane(down, 0.0f);
-    Plane* leftWall = new Plane(right, 0.0f);
-    Plane* rightWall = new Plane(left, width);
-    
-    addComponent(floor);
-    addComponent(ceiling);
-    addComponent(leftWall);
-    addComponent(rightWall);
-}

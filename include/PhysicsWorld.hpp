@@ -33,5 +33,5 @@ class PhysicsWorld
       void pause();
       void resume();
       void toggleRunning();
-      void createWalls(float width, float height);
+      
 };

@@ -2,13 +2,12 @@
 #include "Vector2.hpp"
 #include <iostream>
 RigidBody::RigidBody ( float mass, Vector2 pos ) 
-    : m_mass ( mass ), position ( pos ) {
+    : m_mass ( mass ), position ( pos ), m_linVelocity(0.0f, 0.0f), m_sigmaforce(0.0f, 0.0f) {
     if ( mass == 0 ) {
         m_onebymass = 0 ; 
     } else {
         m_onebymass = 1.0f / mass ; 
     }
-    m_linVelocity = 0.0f ;
 }
 
 bool RigidBody::hasInfiniteMass() const {
@@ -49,3 +48,6 @@ void RigidBody::update (float dt) {
     
 }
 
+void RigidBody::setLinearVelocity(Vector2 v){
+    m_linVelocity = v;
+}
