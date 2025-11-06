@@ -10,8 +10,14 @@ PhysicsWorld& PhysicsWorld::getInstance() {
     return instance;
 }
 
-void PhysicsWorld::update ( float dt) {
-    
+void PhysicsWorld::update(float dt) {
+    if(!m_isRunning) return;
+
+    m_forceRegister.updateForces(dt);
+    for (RigidBody* rb : m_bodies) {
+        rb->update(dt);
+    }
+
     int n = m_components.size();
     std::vector<CollisionManifold> manifolds;
 
@@ -19,9 +25,9 @@ void PhysicsWorld::update ( float dt) {
         for(int j = i + 1; j < n; j++) {
             Component* compA = m_components[i];
             Component* compB = m_components[j];
-            
+
             if (!compA || !compB) continue;
-            
+
             CollisionManifold manifold = Collisions::findCollisionFeatures(compA, compB);
             if (manifold.isColliding()) {
                 manifolds.push_back(manifold);
@@ -29,18 +35,15 @@ void PhysicsWorld::update ( float dt) {
         }
     }
 
-    for (auto& manifold : manifolds) {
-        manifold.applyPositionalCorrection();
-        manifold.applyImpulse();
+    const int collisionIterations = 10;
+    for (int k = 0; k < collisionIterations; k++) {
+        for (auto& manifold : manifolds) {
+            manifold.applyImpulse();
+            manifold.applyPositionalCorrection();
+        }
     }
-
-    if(!m_isRunning) return;
-    m_forceRegister.updateForces(dt);
-    for ( RigidBody* rb : m_bodies ) {
-        rb->update ( dt ) ;
-    }
-    
 }
+
 
 void PhysicsWorld::renderAll(Renderer& renderer) {
     for (Component* comp : m_components) {

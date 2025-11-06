@@ -11,7 +11,7 @@
 
 int main()
 {   
-    Demo::generateRandom(100, config::WINDOW_WIDTH, config::WINDOW_HEIGHT);
+   Demo::generateRandom(100, config::WINDOW_WIDTH, config::WINDOW_HEIGHT);
     sf::RenderWindow window(
         sf::VideoMode(sf::Vector2u(config::WINDOW_WIDTH, config::WINDOW_HEIGHT)),
         "Physics Simulator 2D",
@@ -28,6 +28,16 @@ int main()
     
     physicsWorld.pause();
    
+    Plane* floor = new Plane(Vector2(0, 1), Vector2(0, 0)); // horizontal floor, normal pointing up
+    Plane* leftWall = new Plane(Vector2(1, 0), Vector2(0, 0)); // left wall, normal right
+    Plane* rightWall = new Plane(Vector2(-1, 0), Vector2(config::WINDOW_WIDTH, 0)); // right wall, normal left
+    Plane* ceiling = new Plane(Vector2(0, -1), Vector2(0,  config::WINDOW_HEIGHT)); // ceiling, normal down
+
+    PhysicsWorld& world = PhysicsWorld::getInstance();
+    world.addComponent(floor); world.addRigidBody(floor->getRigidBody());
+    world.addComponent(leftWall); world.addRigidBody(leftWall->getRigidBody());
+    world.addComponent(rightWall); world.addRigidBody(rightWall->getRigidBody());
+    world.addComponent(ceiling); world.addRigidBody(ceiling->getRigidBody());
 
    
     while (window.isOpen())

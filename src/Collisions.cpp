@@ -17,38 +17,26 @@ CollisionManifold Collisions::findCollisionFeatures(Component* c1, Component* c2
 }
 
 CollisionManifold Collisions::findPlaneCollisionFeatures(Circle* circle, Plane* plane) {
-    if (!circle || !plane || !circle->getRigidBody() || !plane->getRigidBody()) {
-        return CollisionManifold();
-    }
+    if (!circle || !plane || !circle->getRigidBody()) return CollisionManifold();
 
     Vector2 circleCenter = circle->getCenter();
+    float radius = circle->getRadius();
     Vector2 planeNormal = plane->getNormal();
     Vector2 planePoint = plane->getPoint();
 
-    float radius = circle->getRadius();
     Vector2 toCircle = circleCenter - planePoint;
     float distance = toCircle.dot(planeNormal);
 
-    
-    if (distance > radius) {
-        return CollisionManifold();
+    if (distance < radius) { 
+        plane->reflect(circle->getRigidBody()); // simple reflection
+        // optional: reposition circle so it does not sink
+        Vector2 correction = planeNormal * (radius - distance);
+        circle->getRigidBody()->setPosition(circle->getRigidBody()->getPosition() + correction);
     }
 
-    float depth = radius - distance;
-
-    Vector2 contactPoint = circleCenter - (planeNormal * distance);
-
-    if (depth > 0.0f) {
-        RigidBody* circleBody = circle->getRigidBody();
-        RigidBody* planeBody = plane->getRigidBody();
-
-        CollisionManifold manifold(circleBody, planeBody, planeNormal, depth);
-        manifold.addContactPoint(contactPoint);
-        return manifold;
-    }
-
-    return CollisionManifold();
+    return CollisionManifold(); // empty because impulse is handled
 }
+
 
 CollisionManifold Collisions::findCollisionFeatures(Circle* a, Circle* b) {
     if (!a || !b || !a->getRigidBody() || !b->getRigidBody()) {
