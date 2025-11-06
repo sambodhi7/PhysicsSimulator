@@ -8,7 +8,9 @@ class Vector2{
     Vector2(float x=0, float y=0) : x(x), y(y) {}
 
     Vector2 operator+(const Vector2& other) const ;
-
+    
+    Vector2 operator-() const { return Vector2(-x, -y); }  // Unary minus operator
+    
     Vector2 operator-(const Vector2& other) const ;
 
     Vector2 operator*(const float scalar) const ;

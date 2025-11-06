@@ -3,6 +3,8 @@
 #include <iostream>
 #include <Component.hpp>
 #include "DownWardsGravity.hpp"
+#include "Collisions.hpp"
+
 PhysicsWorld& PhysicsWorld::getInstance() {
     static PhysicsWorld instance;
     return instance;
@@ -10,11 +12,34 @@ PhysicsWorld& PhysicsWorld::getInstance() {
 
 void PhysicsWorld::update ( float dt) {
     
+    int n = m_components.size();
+    std::vector<CollisionManifold> manifolds;
+
+    for(int i = 0; i < n; i++) {
+        for(int j = i + 1; j < n; j++) {
+            Component* compA = m_components[i];
+            Component* compB = m_components[j];
+            
+            if (!compA || !compB) continue;
+            
+            CollisionManifold manifold = Collisions::findCollisionFeatures(compA, compB);
+            if (manifold.isColliding()) {
+                manifolds.push_back(manifold);
+            }
+        }
+    }
+
+    for (auto& manifold : manifolds) {
+        manifold.applyPositionalCorrection();
+        manifold.applyImpulse();
+    }
+
     if(!m_isRunning) return;
     m_forceRegister.updateForces(dt);
     for ( RigidBody* rb : m_bodies ) {
         rb->update ( dt ) ;
     }
+    
 }
 
 void PhysicsWorld::renderAll(Renderer& renderer) {
@@ -49,4 +74,21 @@ void PhysicsWorld::resume(){
 
 void PhysicsWorld::toggleRunning(){
     m_isRunning = !m_isRunning; 
+}
+
+void PhysicsWorld::createWalls(float width, float height) {
+    Vector2 up(0.0f, -1.0f);
+    Vector2 down(0.0f, 1.0f);
+    Vector2 left(-1.0f, 0.0f);
+    Vector2 right(1.0f, 0.0f);
+    
+    Plane* floor = new Plane(up, height);
+    Plane* ceiling = new Plane(down, 0.0f);
+    Plane* leftWall = new Plane(right, 0.0f);
+    Plane* rightWall = new Plane(left, width);
+    
+    addComponent(floor);
+    addComponent(ceiling);
+    addComponent(leftWall);
+    addComponent(rightWall);
 }

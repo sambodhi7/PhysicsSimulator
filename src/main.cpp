@@ -24,7 +24,8 @@ int main()
 
     float accumulator = 0.0f;
     float prevTime   = utils::getCurrentTimeInSeconds();
-
+    
+    physicsWorld.pause();
 
    
     while (window.isOpen())
@@ -58,7 +59,7 @@ int main()
                         15.0f,
                         static_cast<float>(mousePos.x),
                         static_cast<float>(mousePos.y),
-                        1.0f
+                        3.0f
                     );
                 }   
                   

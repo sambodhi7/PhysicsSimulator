@@ -1,11 +1,12 @@
 #include "Circle.hpp"
 #include "Renderer.hpp"
-Circle::Circle(float r) : m_radius(r) {
-    m_rb = nullptr;
-}
 
-Circle::Circle(float r, RigidBody* rb) : m_radius(r), m_rb(rb) {
-}
+Circle::Circle(float r) 
+    : Component(ColliderType::Circle), m_radius(r), m_rb(nullptr) 
+    {}
+Circle::Circle(float r, RigidBody* rb) 
+    : Component(ColliderType::Circle), m_radius(r), m_rb(rb) 
+    {}
 
 float Circle::getRadius() const {
      return m_radius; }

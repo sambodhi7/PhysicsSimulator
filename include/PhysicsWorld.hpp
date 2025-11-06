@@ -7,6 +7,8 @@
 #include<vector>
 #include "ForceRegistry.hpp"
 #include "DownWardsGravity.hpp"
+#include "CollisionDetector.hpp"
+#include "CollisionResolver.hpp"
 
 class PhysicsWorld
 {
@@ -18,7 +20,8 @@ class PhysicsWorld
      std::vector<Component*> m_components ; 
      ForceRegistry m_forceRegister ;
      bool m_isRunning = true;
-
+     CollisionDetector m_collisionDetector;
+     CollisionResolver m_collisionResolver;
 
 
    public : 
@@ -30,7 +33,5 @@ class PhysicsWorld
       void pause();
       void resume();
       void toggleRunning();
-      
-
-
+      void createWalls(float width, float height);
 };

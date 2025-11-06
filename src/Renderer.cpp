@@ -30,3 +30,23 @@ void Renderer::render(Circle* circle) {
     m_window->draw(shape);
 
 }
+
+void Renderer::render(Plane* plane){
+    // Vector2 normal = plane->getNormal();
+    // float offset = plane->getOffset();
+
+    // Vector2 pointOnPlane = normal * offset;
+
+    // Vector2 dir(-normal.y, normal.x); 
+
+    // Vector2 lineStart = pointOnPlane - dir * 1000.0f; 
+    // Vector2 lineEnd = pointOnPlane + dir * 1000.0f; 
+
+    // sf::Vertex line[] =
+    // {
+    //     sf::Vertex(sf::Vector2f(lineStart.x, lineStart.y), sf::Color::Red),
+    //     sf::Vertex(sf::Vector2f(lineEnd.x, lineEnd.y), sf::Color::Red)
+    // };
+
+    // m_window->draw(line, 2, sf::Lines);
+}
